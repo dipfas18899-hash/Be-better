@@ -25,6 +25,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -104,11 +105,12 @@ private fun MoodGenreGrid(
         SectionHeader(section.title)
         BoxWithConstraints(Modifier.fillMaxWidth()) {
             val cardWidth = (maxWidth - PAGE_GUTTER * 2 - 12.dp) / 2
+            val chunkedItems = remember(section.items) { section.items.chunked(2) }
             Column(
                 verticalArrangement = Arrangement.spacedBy(12.dp),
                 modifier = Modifier.padding(horizontal = PAGE_GUTTER),
             ) {
-                section.items.chunked(2).forEach { row ->
+                chunkedItems.forEach { row ->
                     Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                         row.forEach { item ->
                             MoodGenreCard(

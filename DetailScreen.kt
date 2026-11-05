@@ -481,6 +481,7 @@ fun DetailScreen(
                     // it pages sideways four at a time and stops at twenty.
                     item {
                         val top = state.data.take(MAX_ARTIST_SONGS)
+                        val chunkedTop = remember(state.data) { top.chunked(SONGS_PER_COLUMN) }
                         SectionHeading(stringResource(R.string.top_songs), palette)
                         BoxWithConstraints {
                             val columnWidth = trackColumnWidth(maxWidth)
@@ -488,7 +489,7 @@ fun DetailScreen(
                                 contentPadding = PaddingValues(horizontal = PAGE_GUTTER),
                                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                             ) {
-                                items(top.chunked(SONGS_PER_COLUMN)) { column ->
+                                items(chunkedTop) { column ->
                                     Column(Modifier.width(columnWidth)) {
                                         column.forEach { song ->
                                             CompactSongRow(
