@@ -251,11 +251,12 @@ private fun RecentShelf(
         if (viewType == LibraryViewType.LIST) {
             BoxWithConstraints {
                 val columnWidth = trackColumnWidth(maxWidth)
+                val chunkedItems = remember(shelf.items) { shelf.items.chunked(RECENT_TRACKS_PER_COLUMN) }
                 LazyRow(
                     contentPadding = PaddingValues(horizontal = PAGE_GUTTER),
                     horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
-                    items(shelf.items.chunked(RECENT_TRACKS_PER_COLUMN)) { column ->
+                    items(chunkedItems) { column ->
                         Column(Modifier.width(columnWidth)) {
                             column.forEach { item ->
                                 RecentTrackRow(
