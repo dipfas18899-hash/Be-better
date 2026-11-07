@@ -1151,4 +1151,6 @@
 
 
 
+    <string name="decrease_volume">Decrease volume</string>
+    <string name="increase_volume">Increase volume</string>
 </resources>
