@@ -3317,7 +3317,7 @@ fun NowPlayingScreen(
                 ) {
                     Icon(
                         Icons.AutoMirrored.Rounded.VolumeDown,
-                        contentDescription = null,
+                        contentDescription = stringResource(R.string.decrease_volume),
                         tint = Color.White.copy(alpha = 0.5f),
                         modifier = Modifier.size(20.dp),
                     )
@@ -3342,7 +3342,7 @@ fun NowPlayingScreen(
                     Spacer(Modifier.width(10.dp))
                     Icon(
                         Icons.AutoMirrored.Rounded.VolumeUp,
-                        contentDescription = null,
+                        contentDescription = stringResource(R.string.increase_volume),
                         tint = Color.White.copy(alpha = 0.5f),
                         modifier = Modifier.size(20.dp),
                     )
@@ -3812,7 +3812,7 @@ private fun WidePlayerControls(
                 ) {
                     Icon(
                         Icons.AutoMirrored.Rounded.VolumeDown,
-                        contentDescription = null,
+                        contentDescription = stringResource(R.string.decrease_volume),
                         tint = Color.White.copy(alpha = 0.5f),
                         modifier = Modifier.size(18.dp),
                     )
@@ -3836,7 +3836,7 @@ private fun WidePlayerControls(
                     Spacer(Modifier.width(8.dp))
                     Icon(
                         Icons.AutoMirrored.Rounded.VolumeUp,
-                        contentDescription = null,
+                        contentDescription = stringResource(R.string.increase_volume),
                         tint = Color.White.copy(alpha = 0.5f),
                         modifier = Modifier.size(18.dp),
                     )
