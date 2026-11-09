@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import secrets
 from dataclasses import dataclass, field
+from collections.abc import KeysView
 from typing import Any
 
 from . import codes, config
@@ -497,6 +498,9 @@ class PartyStore:
 
     def all(self) -> list[Party]:
         return list(self._parties.values())
+
+    def active_codes(self) -> KeysView[str]:
+        return self._parties.keys()
 
     def sweep(self, now: int) -> list[Party]:
         """Evict timed-out members and dead parties. Returns parties that changed."""

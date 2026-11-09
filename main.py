@@ -400,7 +400,7 @@ async def _heartbeat() -> None:
             # Sockets whose party the sweep has just deleted. Left attached they
             # would sit open forever receiving nothing, which on a phone is a
             # radio kept awake for a party that no longer exists.
-            for code in hub.active_codes() - {p.code for p in store.all()}:
+            for code in hub.active_codes() - store.active_codes():
                 await hub.drop_party(code)
         except Exception as exc:  # noqa: BLE001 — the ticker must outlive any one bad pass
             log.warning("heartbeat pass failed: %s", exc)
