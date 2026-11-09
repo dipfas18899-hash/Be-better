@@ -1,0 +1,3 @@
+## 2025-02-28 - Set arithmetic with `dict.keys()`
+**Learning:** In high-frequency loops (like a continuous WebSocket heartbeat ticker), evaluating `set.difference` against dynamically created lists/sets (e.g., `hub.active_codes() - {p.code for p in store.all()}`) incurs massive overhead due to constant memory allocation and iteration. Python 3's `dict.keys()` returns a `KeysView` object which implements `collections.abc.Set` (meaning it supports set difference `keys1 - keys2` natively in O(N) time and O(1) extra space).
+**Action:** Expose `KeysView` directly instead of allocating new intermediate sets or lists, particularly for set operations on active state keys in hot loops.

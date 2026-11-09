@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+from collections.abc import KeysView
 from typing import Any
 
 from fastapi import WebSocket
@@ -56,8 +57,8 @@ class Hub:
     def members_online(self, code: str) -> set[str]:
         return set(self._sockets.get(code, {}).keys())
 
-    def active_codes(self) -> set[str]:
-        return set(self._sockets.keys())
+    def active_codes(self) -> KeysView[str]:
+        return self._sockets.keys()
 
     async def send(self, code: str, member_id: str, payload: dict[str, Any]) -> None:
         socket = self._sockets.get(code, {}).get(member_id)
