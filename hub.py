@@ -10,6 +10,7 @@ leaving a zombie receiving frames nobody reads.
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 from typing import Any
 
@@ -76,14 +77,23 @@ class Hub:
         if not room:
             return
         targets = [(mid, sock) for mid, sock in room.items() if mid != skip]
+
+        text = json.dumps(payload, separators=(',', ':'))
+
         # Concurrently, so one member on a slow link does not delay the frame
         # for everyone else — which in this feature is not a latency nicety but
         # the thing being synchronised.
         await asyncio.gather(
-            *(_send_quietly(sock, payload) for _, sock in targets),
+            *(_send_text_quietly(sock, text) for _, sock in targets),
             return_exceptions=True,
         )
 
+
+async def _send_text_quietly(socket: WebSocket, text: str) -> None:
+    try:
+        await socket.send_text(text)
+    except Exception as exc:  # noqa: BLE001
+        log.debug("dropped frame to a closed socket: %s", exc)
 
 async def _send_quietly(socket: WebSocket, payload: dict[str, Any]) -> None:
     try:
